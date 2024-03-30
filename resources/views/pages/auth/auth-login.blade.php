@@ -14,23 +14,34 @@
             <h4>FIC 8 - Login Siakad</h4>
         </div>
 
+        {{-- action = dia mengarah ke mana --}}
         <div class="card-body">
             <form method="POST"
-                action="#"
+                action="{{ route('login')}}"
                 class="needs-validation"
                 novalidate="">
+                {{-- aman dari csrf --}}
+                @csrf
                 <div class="form-group">
                     <label for="email">Email</label>
+                    {{-- @error = untuk memunculkan pesan error --}}
                     <input id="email"
                         type="email"
-                        class="form-control"
+                        class="form-control @error('email') is-invalid
+
+                        @enderror"
                         name="email"
                         tabindex="1"
-                        required
+
                         autofocus>
-                    <div class="invalid-feedback">
-                        Please fill in your email
-                    </div>
+
+                       {{-- tampil pesan errornya --}}
+                       @error('email')
+                       <div class="invalid-feedback">
+                           {{-- Please fill in your email --}}
+                           {{  $message    }}
+                       </div>
+                       @enderror
                 </div>
 
                 <div class="form-group">
@@ -46,26 +57,20 @@
                     </div>
                     <input id="password"
                         type="password"
-                        class="form-control"
+                        class="form-control @error('password') is-invalid
+
+                        @enderror"
                         name="password"
-                        tabindex="2"
-                        required>
-                    <div class="invalid-feedback">
-                        please fill in your password
+                        tabindex="2">
+                     {{-- tampil pesan errornya --}}
+                   @error('password')
+                   <div class="invalid-feedback">
+                        {{ $message }}
                     </div>
+                   @enderror
                 </div>
 
-                <div class="form-group">
-                    <div class="custom-control custom-checkbox">
-                        <input type="checkbox"
-                            name="remember"
-                            class="custom-control-input"
-                            tabindex="3"
-                            id="remember-me">
-                        <label class="custom-control-label"
-                            for="remember-me">Remember Me</label>
-                    </div>
-                </div>
+
 
                 <div class="form-group">
                     <button type="submit"
@@ -75,21 +80,7 @@
                     </button>
                 </div>
             </form>
-            <div class="mt-4 mb-3 text-center">
-                <div class="text-job text-muted">Login With Social</div>
-            </div>
-            <div class="row sm-gutters">
-                <div class="col-6">
-                    <a class="btn btn-block btn-social btn-facebook">
-                        <span class="fab fa-facebook"></span> Facebook
-                    </a>
-                </div>
-                <div class="col-6">
-                    <a class="btn btn-block btn-social btn-twitter">
-                        <span class="fab fa-twitter"></span> Twitter
-                    </a>
-                </div>
-            </div>
+
 
         </div>
     </div>

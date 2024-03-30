@@ -12,23 +12,35 @@ use Illuminate\Support\Facades\Route;
 | be assigned to the "web" middleware group. Make something great!
 |
 */
+
 Route::get('/', function () {
-    return view('pages.app.dashboard-siakad', ['type_menu' => '']);
+    return view('pages.auth.auth-login', ['type_menu' => '']);
 });
 
-Route::get('/login', function () {
-    return view('pages.auth.auth-login');
-})->name('login');
+//perlu bikin middleware ketika sukses login
+Route::middleware(['auth'])->group(function () {
 
-Route::get('/register', function () {
-    return view('pages.auth.auth-register');
-})->name('register'); //penamaan route pakai name
+    Route::get('home', function () {
+        return view('pages.app.dashboard-siakad', ['type_menu' => '']);
+    })->name('home');
+}); //jadi akses urlnya localhost/home namenyua salah tempat
 
-Route::get('/forgot', function () {
-    return view('pages.auth.auth-forgot-password');
-})->name('forgot');
 
-Route::get('/reset-password', function () {
-    return view('pages.auth.auth-reset-password');
-})->name('reset-password');
+//ininya harus ditutup agar ketika user sudah login, enggak bisa balik lagi ke halaman
+//login
+// Route::get('/login', function () {
+//     return view('pages.auth.auth-login');
+// })->name('login');
+
+// Route::get('/register', function () {
+//     return view('pages.auth.auth-register');
+// })->name('register'); //penamaan route pakai name
+
+// Route::get('/forgot', function () {
+//     return view('pages.auth.auth-forgot-password');
+// })->name('forgot');
+
+// Route::get('/reset-password', function () {
+//     return view('pages.auth.auth-reset-password');
+// })->name('reset-password');
 
