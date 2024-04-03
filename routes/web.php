@@ -1,6 +1,7 @@
 <?php
 
 use Illuminate\Support\Facades\Route;
+use App\Http\Controllers\UserController;
 
 /*
 |--------------------------------------------------------------------------
@@ -21,8 +22,12 @@ Route::get('/', function () {
 Route::middleware(['auth'])->group(function () {
 
     Route::get('home', function () {
-        return view('pages.app.dashboard-siakad', ['type_menu' => '']);
+        return view('pages.app.dashboard-siakad');
     })->name('home');
+
+    //proses crud user hanya bisa oleh user yang sudah login
+    Route::resource('user', UserController::class);
+
 }); //jadi akses urlnya localhost/home namenyua salah tempat
 
 
